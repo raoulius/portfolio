@@ -1,0 +1,22 @@
+export const gridItems= [
+                    {title: 'Title1', 
+                    description: 'Desc1', 
+                    id: 1,
+                    header: 'Header1',
+                    },
+                    {title: 'Title1', 
+                    description: 'Desc1', 
+                    id: 2,
+                    header: 'Header1',
+                    },
+                    {title: 'Title1', 
+                    description: 'Desc1', 
+                    id: 3,
+                    header: 'Header1',
+                    },
+                    {title: 'Title1', 
+                    description: 'Desc1', 
+                    id: 4,
+                    header: 'Header1',
+                    }
+]
