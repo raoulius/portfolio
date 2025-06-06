@@ -293,7 +293,7 @@ export const BlurImage = ({
   const [isLoading, setLoading] = useState(true);
   
   // Filter out Next.js Image specific props that don't belong on regular img elements
-  const { fill, priority, placeholder, blurDataURL, ...imgProps } = rest;
+  const { fill, priority, placeholder, ...imgProps } = rest;
   
   return (
     <img

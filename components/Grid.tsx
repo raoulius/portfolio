@@ -43,11 +43,9 @@ const Grid = () => {
         <BentoGrid>
             {gridItems.map((item, _) => (
                 <BentoGridItem 
-                id={item.id}
                 key={item.id}
                 title={item.title}
                 description={item.description}
-                header={item.header}
                 logo={item.logo || null}
                 logoBgColor={item.logoBgColor}
                 className={item.className}
