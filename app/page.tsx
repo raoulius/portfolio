@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Hero from "@/components/Hero";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import { FaEnvelope, FaHome, FaProjectDiagram } from "react-icons/fa";

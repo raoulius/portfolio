@@ -1,8 +1,8 @@
 import React from 'react'
 
 const MagicButton = ({
-    title, icon, position, handleClick, otherClasses
-}: { title:string; icon:React.ReactNode, position:string; handleClick?: () => void; otherClasses?:string }) => {
+    title, icon, position, otherClasses
+}: { title:string; icon:React.ReactNode, position:string; otherClasses?:string }) => {
   return (
     <button className="relative inline-flex h-12 overflow-hidden rounded-lg p-[1px] focus:outline-none">
         <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#D4F2D2_0%,#E85D75_50%,#FAF3DD_100%)]" />

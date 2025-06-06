@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import { BentoGrid, BentoGridItem} from './ui/bento-grid'
-import { FaCode } from 'react-icons/fa'
 import { gridItems } from '../data/index'
 
 const Grid = () => {
@@ -19,13 +18,14 @@ const Grid = () => {
       }
     )
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
+    const currentRef = sectionRef.current
+    if (currentRef) {
+      observer.observe(currentRef)
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
+      if (currentRef) {
+        observer.unobserve(currentRef)
       }
     }
   }, [])
@@ -41,7 +41,7 @@ const Grid = () => {
       }`}
     >
         <BentoGrid>
-            {gridItems.map((item, i) => (
+            {gridItems.map((item, _) => (
                 <BentoGridItem 
                 id={item.id}
                 key={item.id}
