@@ -30,17 +30,14 @@ type Card = {
 
 export const CarouselContext = createContext<{
   onCardClose: (index: number) => void;
-  currentIndex: number;
 }>({
   onCardClose: () => {},
-  currentIndex: 0,
 });
 
 export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   const carouselRef = React.useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
   const [canScrollRight, setCanScrollRight] = React.useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     if (carouselRef.current) {
@@ -70,12 +67,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   };
 
   const handleCardClose = (index: number) => {
-    // Just update the current index, no auto-scrolling
-    setCurrentIndex(index);
-  };
-
-  const isMobile = () => {
-    return window && window.innerWidth < 768;
+    // No-op, just for context compatibility
   };
 
   // Handle wheel event to allow vertical scrolling while preserving horizontal carousel scrolling
@@ -98,7 +90,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 
   return (
     <CarouselContext.Provider
-      value={{ onCardClose: handleCardClose, currentIndex }}
+      value={{ onCardClose: handleCardClose }}
     >
       <div className="relative w-full">
         <div
@@ -179,7 +171,12 @@ export const Card = ({
 }) => {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { onCardClose, currentIndex } = useContext(CarouselContext);
+  const { onCardClose } = useContext(CarouselContext);
+
+  const handleClose = () => {
+    setOpen(false);
+    onCardClose(index);
+  };
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -196,17 +193,12 @@ export const Card = ({
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+  }, [open, handleClose]);
 
   useOutsideClick(containerRef as React.RefObject<HTMLDivElement>, () => handleClose());
 
   const handleOpen = () => {
     setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    onCardClose(index);
   };
 
   return (
@@ -274,7 +266,6 @@ export const Card = ({
         <BlurImage
           src={card.src}
           alt={card.title}
-          fill
           className="absolute inset-0 z-10 object-cover"
         />
       </motion.button>
@@ -291,10 +282,7 @@ export const BlurImage = ({
   ...rest
 }: ImageProps) => {
   const [isLoading, setLoading] = useState(true);
-  
-  // Filter out Next.js Image specific props that don't belong on regular img elements
-  const { fill, priority, placeholder, ...imgProps } = rest;
-  
+  // Only pass valid img props
   return (
     <img
       className={cn(
@@ -309,7 +297,7 @@ export const BlurImage = ({
       loading="lazy"
       decoding="async"
       alt={alt ? alt : "Background of a beautiful view"}
-      {...imgProps}
+      {...rest}
     />
   );
 };
