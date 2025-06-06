@@ -5,6 +5,7 @@ import React, {
   useState,
   createContext,
   useContext,
+  useCallback,
 } from "react";
 import {
   IconArrowNarrowLeft,
@@ -29,7 +30,7 @@ type Card = {
 };
 
 export const CarouselContext = createContext<{
-  onCardClose: (index: number) => void;
+  onCardClose: () => void;
 }>({
   onCardClose: () => {},
 });
@@ -66,7 +67,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     }
   };
 
-  const handleCardClose = (index: number) => {
+  const handleCardClose = () => {
     // No-op, just for context compatibility
   };
 
@@ -173,10 +174,10 @@ export const Card = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const { onCardClose } = useContext(CarouselContext);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOpen(false);
-    onCardClose(index);
-  };
+    onCardClose();
+  }, [onCardClose]);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
