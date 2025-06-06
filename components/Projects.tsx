@@ -3,7 +3,7 @@ import { Carousel, Card } from './ui/apple-cards-carousel'
 import { appleCards } from '../data/index'
 
 const Projects = () => {
-  const cards = appleCards.map((project, index) => {
+  const cards = appleCards.map((project) => {
     const content = (
       <div>
         <p className="text-neutral-600 text-base md:text-lg font-normal mb-8 dark:text-neutral-400">
