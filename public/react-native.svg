@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <title>React Native</title>
+  <circle cx="16" cy="16" r="2" fill="#61DAFB"/>
+  <g stroke="#61DAFB" stroke-width="1" fill="none">
+    <ellipse cx="16" cy="16" rx="11" ry="4"/>
+    <ellipse cx="16" cy="16" rx="11" ry="4" transform="rotate(60 16 16)"/>
+    <ellipse cx="16" cy="16" rx="11" ry="4" transform="rotate(120 16 16)"/>
+  </g>
+  <circle cx="7" cy="16" r="1.5" fill="#61DAFB"/>
+  <circle cx="25" cy="16" r="1.5" fill="#61DAFB"/>
+  <circle cx="13" cy="7.5" r="1.5" fill="#61DAFB"/>
+  <circle cx="19" cy="24.5" r="1.5" fill="#61DAFB"/>
+  <circle cx="19" cy="7.5" r="1.5" fill="#61DAFB"/>
+  <circle cx="13" cy="24.5" r="1.5" fill="#61DAFB"/>
+</svg> 

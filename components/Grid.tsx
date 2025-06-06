@@ -1,11 +1,45 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useRef, useState } from 'react'
 import { BentoGrid, BentoGridItem} from './ui/bento-grid'
 import { FaCode } from 'react-icons/fa'
 import { gridItems } from '../data/index'
 
 const Grid = () => {
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+        rootMargin: '0px 0px -50px 0px' // Start animation 50px before element comes into view
+      }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current)
+      }
+    }
+  }, [])
+
   return (
-    <section id="about" className="px-4 sm:px-6 md:px-8 lg:px-10">
+    <section 
+      ref={sectionRef}
+      id="about" 
+      className={`px-4 sm:px-6 md:px-8 lg:px-10 mt-8 transition-all duration-1000 ease-out ${
+        isVisible 
+          ? 'opacity-100 translate-y-0' 
+          : 'opacity-0 translate-y-8'
+      }`}
+    >
         <BentoGrid>
             {gridItems.map((item, i) => (
                 <BentoGridItem 
@@ -14,6 +48,9 @@ const Grid = () => {
                 title={item.title}
                 description={item.description}
                 header={item.header}
+                logo={item.logo || null}
+                logoBgColor={item.logoBgColor}
+                className={item.className}
                 />
             ))}
         </BentoGrid>

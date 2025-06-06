@@ -10,9 +10,9 @@ const Hero = () => {
     <div className="w-screen overflow-hidden">
       <AuroraBackground>
           <div className='h-[90vh] relative'>
-              <div className="relative flex h-full items-center justify-center z-10 -mt-15">
+              <div className="relative flex h-full items-center justify-center z-10 -mt-15 px-4 sm:px-6 lg:px-8">
                   <div className='max-w-[89w] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center'>
-                      <h2 className='uppercase tracking-widest text-s text-center w-full text-white'>
+                      <h2 className='uppercase tracking-widest text-sm md:text-base text-center w-full text-white'>
                           Rajendra Aurelius Ritmanto
                       </h2>
 
@@ -23,7 +23,7 @@ const Hero = () => {
                           />
                       </div>
 
-                      <p className='text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl text-white'>
+                      <p className='text-center md:tracking-wider mb-4 text-xl md:text-2xl text-white max-w-3xl'>
                           Building web and software solutions catered to your needs.
                       </p>
                       <a href="#about">

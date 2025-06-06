@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <title>Node.js</title>
+  <path d="M16 2L4 8v16l12 6 12-6V8L16 2zm0 2.5L26.5 9 16 14.5 5.5 9 16 4.5zm-10 6.93L16 16.5l10-5.07v9.14L16 25.5l-10-4.93v-9.14z" fill="#339933"/>
+  <path d="M16 14.5v11L6 20.57v-9.14L16 16.5v-2zm0 0L26.5 9v9.14L16 25.5v-11z" fill="#81C784"/>
+  <path d="M16 2v2.5L5.5 9v2L16 16.5v-2L6 9.43V8L16 2z" fill="#66BB6A"/>
+  <path d="M16 4.5L26.5 9v1.43L16 14.5v2L26 11.57V9L16 4.5z" fill="#4CAF50"/>
+</svg> 
