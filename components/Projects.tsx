@@ -38,7 +38,6 @@ const Projects = () => {
           src: project.src,
           content: content
         }} 
-        index={index} 
         layout={true} 
       />
     );
