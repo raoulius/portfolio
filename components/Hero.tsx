@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextGenerateEffect } from './ui/text-generate-effect'
 import MagicButton from './ui/MagicButton'
-import { FaFileDownload, FaLocationArrow } from 'react-icons/fa'
+import { FaFileDownload} from 'react-icons/fa'
 import { AuroraBackground } from './ui/aurora-background'
 
 const Hero = () => {
