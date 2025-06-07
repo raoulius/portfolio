@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextGenerateEffect } from './ui/text-generate-effect'
 import MagicButton from './ui/MagicButton'
-import { FaLocationArrow } from 'react-icons/fa'
+import { FaFileDownload, FaLocationArrow } from 'react-icons/fa'
 import { AuroraBackground } from './ui/aurora-background'
 
 const Hero = () => {
@@ -23,12 +23,12 @@ const Hero = () => {
                       </div>
 
                       <p className='text-center md:tracking-wider mb-4 text-xl md:text-2xl text-white max-w-3xl'>
-                          Building web and software solutions catered to your needs.
+                        Last Semester Computer Engineering Student
                       </p>
-                      <a href="#about">
+                      <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
                           <MagicButton 
-                              title="Show my work"
-                              icon={<FaLocationArrow />}
+                              title="Resume"
+                              icon={<FaFileDownload />}
                               position="right"
                           />
                       </a>

@@ -99,22 +99,20 @@ export const gridItems= [
 
 export const appleCards = [
   {
-    category: "Full Stack Web App",
-    title: "E-Commerce Platform",
+    category: "Full Stack Mobile Application",
+    title: "Crypto Wallet Tracker",
     src: "/images/project-ecommerce.jpg",
-    description: "A comprehensive e-commerce platform built with React, Node.js, and PostgreSQL. Features include user authentication, product catalog, shopping cart, payment integration, and admin dashboard.",
+    description: "I created this Crypto Wallet Tracker with the shole purpose of having a custom graph that allows me to see what my actual profit and loss from specific transactions. This app checks the the amount of coins and the exact time you bought it, which allows you to isolate the report of a specific transaction or transactions. ",
     features: [
-      "Responsive design with modern UI/UX",
-      "Secure payment processing with Stripe",
-      "Real-time inventory management",
-      "Advanced search and filtering",
-      "Order tracking and notifications"
+      "Auto upload Transaction type from a screenshot from any Crypto App",
+      "API Integration to check the price of the coin at the time of the transaction",
+      "Highly customizable graph to see the profit and loss from specific transactions"
     ],
-    technologies: ["React", "Node.js", "PostgreSQL", "Stripe"]
+    technologies: ["React Native", "Node.js", "Firebase", "Expo"]
   },
   {
-    category: "Mobile App",
-    title: "Task Management App",
+    category: "University Thesis",
+    title: "System Information Backend with integration of ML",
     src: "/images/project-mobile.jpg",
     description: "A cross-platform mobile application built with React Native for efficient task and project management. Includes team collaboration features, real-time synchronization, and offline support.",
     features: [
@@ -127,8 +125,8 @@ export const appleCards = [
     technologies: ["React Native", "Firebase", "Redux"]
   },
   {
-    category: "Web Application",
-    title: "Social Media Dashboard",
+    category: "Real Client Work",
+    title: "Content Management System",
     src: "/images/project-dashboard.jpg",
     description: "A comprehensive social media management dashboard that allows users to manage multiple social media accounts, schedule posts, track analytics, and engage with their audience from a single platform.",
     features: [
@@ -141,8 +139,22 @@ export const appleCards = [
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB"]
   },
   {
-    category: "AI/ML Project",
-    title: "Smart Document Analyzer",
+    category: "Personal Project",
+    title: "Portfolio Website",
+    src: "/images/project-devops.jpg",
+    description: "A complete CI/CD pipeline solution using Docker, Kubernetes, and cloud services to automate the deployment process for web applications. Includes monitoring, logging, and automatic scaling capabilities.",
+    features: [
+      "Automated testing and deployment pipeline",
+      "Container orchestration with Kubernetes",
+      "Infrastructure as Code (IaC)",
+      "Monitoring and alerting system",
+      "Multi-environment deployment strategy"
+    ],
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Sentry", "Vercel"]
+  },
+  {
+    category: "University Project",
+    title: "Movies Database Web Application",
     src: "/images/project-ai.jpg",
     description: "An AI-powered document analysis tool that uses machine learning to extract, categorize, and process information from various document types. Built with Python, TensorFlow, and integrated with a React frontend.",
     features: [
@@ -154,32 +166,4 @@ export const appleCards = [
     ],
     technologies: ["Python", "TensorFlow", "React", "FastAPI"]
   },
-  {
-    category: "DevOps Project",
-    title: "CI/CD Pipeline Automation",
-    src: "/images/project-devops.jpg",
-    description: "A complete CI/CD pipeline solution using Docker, Kubernetes, and cloud services to automate the deployment process for web applications. Includes monitoring, logging, and automatic scaling capabilities.",
-    features: [
-      "Automated testing and deployment pipeline",
-      "Container orchestration with Kubernetes",
-      "Infrastructure as Code (IaC)",
-      "Monitoring and alerting system",
-      "Multi-environment deployment strategy"
-    ],
-    technologies: ["Docker", "Kubernetes", "Jenkins", "AWS"]
-  },
-  {
-    category: "Web3 Project",
-    title: "NFT Marketplace",
-    src: "/images/project-web3.jpg",
-    description: "A decentralized NFT marketplace built on Ethereum blockchain where users can mint, buy, sell, and trade NFTs. Features smart contracts, Web3 integration, and modern UI for seamless user experience.",
-    features: [
-      "Smart contract development with Solidity",
-      "MetaMask wallet integration",
-      "IPFS for decentralized storage",
-      "Royalty and creator fees system",
-      "Advanced search and filtering"
-    ],
-    technologies: ["Solidity", "Web3.js", "React", "IPFS"]
-  }
 ]

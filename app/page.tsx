@@ -5,6 +5,7 @@ import { FaUser } from "react-icons/fa";
 import Grid from "@/components/Grid";
 import Tech from "@/components/Tech";
 import Projects from "@/components/Projects";
+import AboutMe from "@/components/AboutMe";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <Tech />
         <Grid />
         <Projects />
+        <AboutMe />
       </div>
     </main>
   );
