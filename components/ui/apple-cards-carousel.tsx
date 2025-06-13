@@ -10,11 +10,10 @@ import React, {
 import {
   IconArrowNarrowLeft,
   IconArrowNarrowRight,
-  IconX,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "motion/react";
-import { ImageProps } from "next/image";
+import { motion } from "motion/react";
+import Image from "next/image";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 
 interface CarouselProps {
@@ -196,9 +195,9 @@ export const Card = ({
 
   useOutsideClick(containerRef as React.RefObject<HTMLDivElement>, () => handleClose());
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
 
   return (
     <>
@@ -286,23 +285,28 @@ export const BlurImage = ({
   className,
   alt,
   ...rest
-}: ImageProps) => {
-  const [isLoading, setLoading] = useState(true);
+}: {
+  height?: number;
+  width?: number;
+  src: string;
+  className?: string;
+  alt?: string;
+  [key: string]: any;
+}) => {
+  const [, setLoading] = useState(true);
   // Only pass valid img props
   return (
-    <img
+    <Image
       className={cn(
         "h-full w-full transition duration-300 object-cover",
         className,
       )}
       onLoad={() => setLoading(false)}
       onError={() => setLoading(false)}
-      src={src as string}
-      width={width}
-      height={height}
-      loading="eager"
-      decoding="async"
-      alt={alt ? alt : "Background of a beautiful view"}
+      src={src}
+      width={width || 400}
+      height={height || 300}
+      alt={alt || "Background of a beautiful view"}
       {...rest}
     />
   );

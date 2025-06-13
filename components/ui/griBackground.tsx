@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { FaRegClipboard } from "react-icons/fa";
 import React, { useState } from 'react'
 import { socialMedia } from "@/data";
+import Image from "next/image";
     
 export function DotBackgroundDemo() {
 
@@ -33,10 +34,10 @@ export function DotBackgroundDemo() {
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
       <div className="flex flex-col items-center text-center">
                     <h1 className="relative z-20 text-white py-4 md:py-8 text-3xl md:text-6xl lg:text-7xl font-bold">
-                        Let's team up!
+                        Let&apos;s team up!
                     </h1>
                     <p className="text-center text-lg md:text-2xl lg:text-3xl text-white mb-4 px-4" >
-                        Send me a message here.
+                        Chat with me here.
                     </p>
                     
                     {/* Clickable email text */}
@@ -63,7 +64,7 @@ export function DotBackgroundDemo() {
                                 rel="noopener noreferrer"
                                 className="hover:opacity-75 transition-opacity duration-200"
                             >
-                                <img 
+                                <Image 
                                     src={profile.img} 
                                     alt={profile.id}
                                     width={24} 

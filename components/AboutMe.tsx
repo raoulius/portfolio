@@ -1,6 +1,4 @@
 import React from 'react'
-import { FocusCards } from './ui/focus-cards'
-import { aboutMeCards } from '../data/index'
 
 const AboutMe = () => {
   return (

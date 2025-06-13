@@ -1,6 +1,5 @@
 "use client"
-import { socialMedia } from '@/data'
-import { FaRegClipboard } from 'react-icons/fa'
+
 import { DotBackgroundDemo } from './ui/griBackground'
 
 const Footer = () => {

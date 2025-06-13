@@ -113,7 +113,7 @@ export const appleCards = [
   {
     category: "University Thesis",
     title: "System Information Backend with integration of ML",
-    src: " /images/applecards/gruppopiu-tKnt5O4q-f8-unsplash.png",
+    src: "/images/applecards/gruppopiu-tKnt5O4q-f8-unsplash.png",
     description: "A cross-platform mobile application built with React Native for efficient task and project management. Includes team collaboration features, real-time synchronization, and offline support.",
     features: [
       "Cross-platform compatibility (iOS & Android)",

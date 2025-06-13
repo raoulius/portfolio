@@ -1,7 +1,4 @@
 import Hero from "@/components/Hero";
-import { FloatingNav } from "@/components/ui/floating-navbar";
-import { FaEnvelope, FaHome, FaProjectDiagram } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
 import Grid from "@/components/Grid";
 import Tech from "@/components/Tech";
 import Projects from "@/components/Projects";
