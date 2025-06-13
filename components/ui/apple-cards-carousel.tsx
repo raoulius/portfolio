@@ -291,7 +291,7 @@ export const BlurImage = ({
   src: string;
   className?: string;
   alt?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }) => {
   const [, setLoading] = useState(true);
   // Only pass valid img props
