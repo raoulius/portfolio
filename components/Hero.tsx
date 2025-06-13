@@ -23,7 +23,7 @@ const Hero = () => {
                       </div>
 
                       <p className='text-center md:tracking-wider mb-4 text-xl md:text-2xl text-white max-w-3xl'>
-                        Last Semester Computer Engineering Student
+                        Final Semester Computer Engineering Student
                       </p>
                       <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
                           <MagicButton 

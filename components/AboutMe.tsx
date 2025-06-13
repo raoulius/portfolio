@@ -1,4 +1,6 @@
 import React from 'react'
+import { FocusCards } from './ui/focus-cards'
+import { aboutMeCards } from '../data/index'
 
 const AboutMe = () => {
   return (
@@ -8,6 +10,8 @@ const AboutMe = () => {
             <p className='text-xl text-white max-w-3xl'>
                 Fun little section where i get to say things about myself.
             </p>
+
+
         </div>
     </div>
   )

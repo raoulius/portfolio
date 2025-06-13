@@ -16,11 +16,28 @@
   }
 }
 
+/* Force dark mode - override system preferences */
+:root {
+  color-scheme: dark;
+}
+
 /* Prevent overscroll and set background */
 html, body {
   background-color: #000000;
   overscroll-behavior: none;
   overflow-x: hidden;
+}
+
+/* Force dark mode on all elements */
+html {
+  color-scheme: dark !important;
+}
+
+/* Ensure dark mode is always active */
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: dark !important;
+  }
 }
 
 /* Additional overscroll prevention */

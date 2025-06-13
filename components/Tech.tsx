@@ -12,7 +12,7 @@ const Tech = () => {
       },
       {
         threshold: 0.1, // Trigger when 10% of the element is visible
-        rootMargin: '0px 0px -50px 0px' // Start animation 50px before element comes into view
+        rootMargin: '0px 0px -10px 0px' // Start animation 50px before element comes into view
       }
     )
 

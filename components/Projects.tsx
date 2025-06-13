@@ -84,8 +84,8 @@ const Projects = () => {
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
             My Projects
           </h2>
-          <p className="text-xl text-neutral-400 max-w-3xl">
-            Discover my latest work and creative projects. Each card contains detailed information about the technologies used and key features implemented.
+          <p className="text-xl text-white max-w-3xl">
+            Discover my latest work and creative projects.
           </p>
         </div>
         <Carousel items={cards} />

@@ -101,19 +101,19 @@ export const appleCards = [
   {
     category: "Full Stack Mobile Application",
     title: "Crypto Wallet Tracker",
-    src: "/images/project-ecommerce.jpg",
+    src: "/images/applecards/New Project.png",
     description: "I created this Crypto Wallet Tracker with the shole purpose of having a custom graph that allows me to see what my actual profit and loss from specific transactions. This app checks the the amount of coins and the exact time you bought it, which allows you to isolate the report of a specific transaction or transactions. ",
     features: [
       "Auto upload Transaction type from a screenshot from any Crypto App",
       "API Integration to check the price of the coin at the time of the transaction",
       "Highly customizable graph to see the profit and loss from specific transactions"
     ],
-    technologies: ["React Native", "Node.js", "Firebase", "Expo"]
+    technologies: ["React", "Node.js", "Firebase", "Expo"]
   },
   {
     category: "University Thesis",
     title: "System Information Backend with integration of ML",
-    src: "/images/project-mobile.jpg",
+    src: " /images/applecards/gruppopiu-tKnt5O4q-f8-unsplash.png",
     description: "A cross-platform mobile application built with React Native for efficient task and project management. Includes team collaboration features, real-time synchronization, and offline support.",
     features: [
       "Cross-platform compatibility (iOS & Android)",
@@ -122,12 +122,12 @@ export const appleCards = [
       "Push notifications and reminders",
       "Analytics and productivity insights"
     ],
-    technologies: ["React Native", "Firebase", "Redux"]
+    technologies: ["React", "Firebase", "Redux"]
   },
   {
     category: "Real Client Work",
     title: "Content Management System",
-    src: "/images/project-dashboard.jpg",
+    src: "/images/applecards/howard-bouchevereau-RSCirJ70NDM-unsplash.png",
     description: "A comprehensive social media management dashboard that allows users to manage multiple social media accounts, schedule posts, track analytics, and engage with their audience from a single platform.",
     features: [
       "Multi-platform social media integration",
@@ -136,12 +136,12 @@ export const appleCards = [
       "Team collaboration tools",
       "Content calendar and planning"
     ],
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB"]
+    technologies: ["Next.js", "TypeScript", "Tailwind", "MongoDB"]
   },
   {
     category: "Personal Project",
     title: "Portfolio Website",
-    src: "/images/project-devops.jpg",
+    src: "/images/applecards/walling-nMqqEFhInkY-unsplash.png",
     description: "A complete CI/CD pipeline solution using Docker, Kubernetes, and cloud services to automate the deployment process for web applications. Includes monitoring, logging, and automatic scaling capabilities.",
     features: [
       "Automated testing and deployment pipeline",
@@ -150,12 +150,12 @@ export const appleCards = [
       "Monitoring and alerting system",
       "Multi-environment deployment strategy"
     ],
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Sentry", "Vercel"]
+    technologies: ["Next.js", "TypeScript", "Tailwind", "Sentry", "Vercel"]
   },
   {
     category: "University Project",
     title: "Movies Database Web Application",
-    src: "/images/project-ai.jpg",
+    src: "/images/applecards/howard-bouchevereau-RSCirJ70NDM-unsplash.png",
     description: "An AI-powered document analysis tool that uses machine learning to extract, categorize, and process information from various document types. Built with Python, TensorFlow, and integrated with a React frontend.",
     features: [
       "OCR text extraction from images and PDFs",
@@ -165,5 +165,30 @@ export const appleCards = [
       "RESTful API for easy integration"
     ],
     technologies: ["Python", "TensorFlow", "React", "FastAPI"]
+  },
+]
+
+export const socialMedia = [
+  {
+    id: "linkedin",
+    img: "/images/social-linkedin.svg",
+    url: "https://www.linkedin.com/in/rajendra-aurelius-3406a1217/",
+  },
+  {
+    id: "github",
+    img: "/images/github-square.svg",
+    url: "https://github.com/raoulius",
+  },
+  {
+    id: "medium",
+    img: "/images/medium.svg",
+    url: "https://medium.com/@rritmanto",
+  }
+]
+
+export const aboutMeCards = [
+  {
+    title: "Full Stack Mobile Application",
+    src: "/images/project-ecommerce.jpg",
   },
 ]

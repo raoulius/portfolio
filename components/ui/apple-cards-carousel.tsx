@@ -202,9 +202,10 @@ export const Card = ({
 
   return (
     <>
+      {/* COMMENTED OUT: Card opening animation/modal
       <AnimatePresence>
         {open && (
-          <div className="fixed inset-0 z-50 h-screen overflow-auto">
+          <div className="fixed inset-0 z-50 flex items-center justify-center h-screen overflow-auto p-4">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -212,12 +213,12 @@ export const Card = ({
               className="fixed inset-0 h-full w-full bg-black/80 backdrop-blur-lg"
             />
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
               ref={containerRef}
               layoutId={layout ? `card-${card.title}` : undefined}
-              className="relative z-[60] mx-auto my-10 h-fit max-w-5xl rounded-3xl bg-white p-4 font-sans md:p-10 dark:bg-neutral-900"
+              className="relative z-[60] h-fit w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white p-4 font-sans md:p-10 dark:bg-neutral-900"
             >
               <button
                 className="sticky top-4 right-0 ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-black dark:bg-white"
@@ -242,9 +243,15 @@ export const Card = ({
           </div>
         )}
       </AnimatePresence>
+      */}
       <motion.button
         layoutId={layout ? `card-${card.title}` : undefined}
-        onClick={handleOpen}
+        // onClick={handleOpen} // COMMENTED OUT: Modal opening
+        onClick={() => {
+          // Placeholder for link opening - replace with actual link logic
+          console.log(`Clicked on card: ${card.title}`);
+          // Example: window.open('https://example.com', '_blank');
+        }}
         className="relative z-10 flex h-80 w-56 flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 md:h-[40rem] md:w-96 dark:bg-neutral-900 cursor-pointer"
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-full bg-gradient-to-b from-black/50 via-transparent to-transparent" />
@@ -285,15 +292,15 @@ export const BlurImage = ({
   return (
     <img
       className={cn(
-        "h-full w-full transition duration-300",
-        isLoading ? "blur-sm" : "blur-0",
+        "h-full w-full transition duration-300 object-cover",
         className,
       )}
       onLoad={() => setLoading(false)}
+      onError={() => setLoading(false)}
       src={src as string}
       width={width}
       height={height}
-      loading="lazy"
+      loading="eager"
       decoding="async"
       alt={alt ? alt : "Background of a beautiful view"}
       {...rest}
