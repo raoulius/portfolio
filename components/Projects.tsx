@@ -33,14 +33,14 @@ const Projects = () => {
   const cards = appleCards.map((project) => {
     const content = (
       <div>
-        <p className="text-neutral-600 text-base md:text-lg font-normal mb-8 dark:text-neutral-400">
+        <p className="text-neutral-400 text-base md:text-lg font-normal mb-8">
           {project.description}
         </p>
         <div className="mb-8">
-          <h3 className="text-neutral-700 text-lg font-semibold mb-4 dark:text-neutral-300">
+          <h3 className="text-neutral-300 text-lg font-semibold mb-4">
             Key Features:
           </h3>
-          <ul className="text-neutral-600 text-base space-y-2 dark:text-neutral-400">
+          <ul className="text-neutral-400 text-base space-y-2">
             {project.features.map((feature, idx) => (
               <li key={idx}>• {feature}</li>
             ))}
@@ -48,7 +48,7 @@ const Projects = () => {
         </div>
         <div className="flex gap-4">
           {project.technologies.map((tech, idx) => (
-            <div key={idx} className="bg-neutral-100 px-4 py-2 rounded-full text-sm dark:bg-neutral-800">
+            <div key={idx} className="bg-neutral-800 px-4 py-2 rounded-full text-sm">
               {tech}
             </div>
           ))}

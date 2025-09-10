@@ -21,17 +21,16 @@ export function DotBackgroundDemo() {
 
     
   return (
-    <div className="relative flex h-[30rem] md:h-[40rem] lg:h-[50rem] w-full items-center justify-center bg-white dark:bg-black px-4">
+    <div className="relative flex h-[30rem] md:h-[40rem] lg:h-[50rem] w-full items-center justify-center bg-black">
       <div
         className={cn(
           "absolute inset-0",
           "[background-size:20px_20px]",
-          "[background-image:radial-gradient(#d4d4d4_1px,transparent_1px)]",
-          "dark:[background-image:radial-gradient(#404040_1px,transparent_1px)]",
+          "[background-image:radial-gradient(#404040_1px,transparent_1px)]",
         )}
       />
       {/* Radial gradient for the container to give a faded look */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
       <div className="flex flex-col items-center text-center">
                     <h1 className="relative z-20 text-white py-4 md:py-8 text-3xl md:text-6xl lg:text-7xl font-bold">
                         Let&apos;s team up!

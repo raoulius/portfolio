@@ -44,3 +44,55 @@ html {
 * {
   overscroll-behavior: none;
 }
+
+/* Force consistent dark theme across all components */
+* {
+  color-scheme: dark !important;
+}
+
+/* Override any light mode styles */
+.bg-white {
+  background-color: rgb(23, 23, 23) !important;
+}
+
+.bg-gray-100 {
+  background-color: rgb(38, 38, 38) !important;
+}
+
+.text-black {
+  color: rgb(255, 255, 255) !important;
+}
+
+.text-gray-500 {
+  color: rgb(163, 163, 163) !important;
+}
+
+.text-gray-700 {
+  color: rgb(212, 212, 212) !important;
+}
+
+/* Ensure all backgrounds are dark */
+body, html {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Completely disable system theme detection */
+@media (prefers-color-scheme: light) {
+  * {
+    color-scheme: dark !important;
+  }
+  
+  .bg-white {
+    background-color: rgb(23, 23, 23) !important;
+  }
+  
+  .text-black {
+    color: rgb(255, 255, 255) !important;
+  }
+}
+
+/* Force dark mode on all elements regardless of system preference */
+*, *::before, *::after {
+  color-scheme: dark !important;
+}

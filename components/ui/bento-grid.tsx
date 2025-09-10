@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export const BentoGrid = ({
   className,
@@ -37,7 +38,7 @@ export const BentoGridItem = ({
   return (
     <div
       className={cn(
-        "group/bento relative shadow-input rounded-3xl bg-[rgb(26,26,26)] hover:bg-[rgb(40,40,40)] border-2 border-transparent transition duration-200 hover:shadow-xl hover:border-gray-300 dark:border-transparent dark:bg-[rgb(26,26,26)] dark:shadow-none",
+        "group/bento relative shadow-input rounded-3xl bg-[rgb(26,26,26)] hover:bg-[rgb(40,40,40)] border-2 border-transparent transition duration-200 hover:shadow-xl hover:border-gray-300",
         // Mobile: minimal padding and square aspect, Desktop: original layout
         "flex items-center justify-center p-2 aspect-square sm:flex-col sm:p-4 sm:aspect-auto",
         className,
@@ -48,9 +49,11 @@ export const BentoGridItem = ({
         {logo && (
           <div className={`p-3 rounded-lg flex items-center justify-center ${logoBgColor || 'bg-[#3178C6]/20'}`}>
             {typeof logo === 'string' ? (
-              <img 
+              <Image 
                 src={logo} 
                 alt="Logo" 
+                width={48}
+                height={48}
                 className="w-12 h-12 object-contain"
               />
             ) : (
@@ -66,9 +69,11 @@ export const BentoGridItem = ({
           {logo && (
             <div className={`p-3 rounded-lg w-fit flex items-center justify-center ${logoBgColor || 'bg-[#3178C6]/20'}`}>
               {typeof logo === 'string' ? (
-                <img 
+                <Image 
                   src={logo} 
                   alt="Logo" 
+                  width={32}
+                  height={32}
                   className="w-8 h-8 object-contain"
                 />
               ) : (
@@ -77,10 +82,10 @@ export const BentoGridItem = ({
             </div>
           )}
           <div className="flex-1">
-            <div className="mb-1 font-sans font-bold text-neutral-600 dark:text-neutral-200">
+            <div className="mb-1 font-sans font-bold text-neutral-200">
               {title}
             </div>
-            <div className="font-sans text-xs font-normal text-neutral-600 dark:text-neutral-300">
+            <div className="font-sans text-xs font-normal text-neutral-300">
               {description}
             </div>
           </div>

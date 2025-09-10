@@ -9,7 +9,6 @@ const Footer = () => {
             </div>
             
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
                 <DotBackgroundDemo />   
                 <p className="text-center text-white">Copyright © 2024 Rajendra Aurelius</p>
             </div>
