@@ -96,3 +96,21 @@ body, html {
 *, *::before, *::after {
   color-scheme: dark !important;
 }
+
+/* Additional overrides for any remaining light elements */
+.bg-gray-50, .bg-gray-100, .bg-gray-200 {
+  background-color: rgb(38, 38, 38) !important;
+}
+
+.text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900 {
+  color: rgb(212, 212, 212) !important;
+}
+
+/* Force dark mode on any potentially light backgrounds */
+[class*="bg-white"], [class*="bg-gray-"] {
+  background-color: rgb(23, 23, 23) !important;
+}
+
+[class*="text-black"], [class*="text-gray-"] {
+  color: rgb(255, 255, 255) !important;
+}
