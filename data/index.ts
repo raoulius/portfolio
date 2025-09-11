@@ -3,7 +3,7 @@ export const gridItems= [
                     description: 'Dynamic programming language for web development', 
                     id: 1,
                     header: 'Header1', 
-                    className: 'bg-red-500',
+                    className: 'bg-red-500', // Not used by BentoGrid, kept for reference
                     logo: '/images/JavaScript-logo.png',
                     logoBgColor: 'bg-[#F1C40F]/20',
                     },
@@ -11,7 +11,7 @@ export const gridItems= [
                     description: 'A PHP fullstack framework', 
                     id: 2,
                     header: 'Header1',
-                    className: 'bg-blue-500',
+                    className: 'bg-blue-500', // Not used by BentoGrid, kept for reference
                     logo: '/images/Laravel-logo.png',
                     logoBgColor: 'bg-[#D32F2F]/20',
                     },
@@ -19,7 +19,7 @@ export const gridItems= [
                     description: 'Java framework for building enterprise applications', 
                     id: 3,
                     header: 'Header1',
-                    className: 'bg-green-500',
+                    className: 'bg-green-500', // Not used by BentoGrid, kept for reference
                     logo: '/images/springboot-logo.png',
                     logoBgColor: 'bg-[#4A7C3A]/20',
                     },
@@ -27,7 +27,7 @@ export const gridItems= [
                     description: 'Advanced open-source relational database', 
                     id: 4,
                     header: 'Header1', 
-                    className: 'bg-yellow-500',
+                    className: 'bg-yellow-500', // Not used by BentoGrid, kept for reference
                     logo: '/images/postgresql.svg',
                     logoBgColor: 'bg-[#2D5A87]/20',
                     },
@@ -35,7 +35,7 @@ export const gridItems= [
                     description: 'Build mobile apps with React', 
                     id: 5,
                     header: 'Header1',
-                    className: 'bg-purple-500',
+                    className: 'bg-purple-500', // Not used by BentoGrid, kept for reference
                     logo: '/images/React.png',
                     logoBgColor: 'bg-[#4A9EBF]/20',
                     },
@@ -43,7 +43,7 @@ export const gridItems= [
                     description: 'Backend-as-a-Service platform by Google', 
                     id: 6,
                     header: 'Header1',
-                    className: 'bg-orange-500',
+                    className: 'bg-orange-500', // Not used by BentoGrid, kept for reference
                     logo: '/images/firebase-logo.png',
                     logoBgColor: 'bg-[#CC7A00]/20',
                     },
@@ -51,7 +51,7 @@ export const gridItems= [
                     description: 'Popular relational database management system', 
                     id: 7,
                     header: 'Header1',
-                    className: 'bg-teal-500',
+                    className: 'bg-teal-500', // Not used by BentoGrid, kept for reference
                     logo: '/images/MySql-logo.png',
                     logoBgColor: 'bg-[#005A6F]/20',
                     },
@@ -59,7 +59,7 @@ export const gridItems= [
                     description: 'Containerization platform for applications', 
                     id: 8,
                     header: 'Header1',
-                    className: 'bg-cyan-500',
+                    className: 'bg-cyan-500', // Not used by BentoGrid, kept for reference
                     logo: '/images/Docker.png',
                     logoBgColor: 'bg-[#0A93BE]/20',
                     },
@@ -67,7 +67,7 @@ export const gridItems= [
                     description: 'Utility-first CSS framework', 
                     id: 9,
                     header: 'Header1',
-                    className: 'bg-sky-500',
+                    className: 'bg-sky-500', // Not used by BentoGrid, kept for reference
                     logo: '/images/tailwindcss-tailwind-css-logo-blue-wave-symbol-design.png',
                     logoBgColor: 'bg-[#2D96C6]/20',
                     },
@@ -75,7 +75,7 @@ export const gridItems= [
                     description: 'Distributed version control system', 
                     id: 10,
                     header: 'Header1',
-                    className: 'bg-red-600',
+                    className: 'bg-red-600', // Not used by BentoGrid, kept for reference
                     logo: '/images/Git.png',
                     logoBgColor: 'bg-[#C04028]/20',
                     },
@@ -83,7 +83,7 @@ export const gridItems= [
                     description: 'Cloud computing services by Google', 
                     id: 11,
                     header: 'Header1',
-                    className: 'bg-blue-600',
+                    className: 'bg-blue-600', // Not used by BentoGrid, kept for reference
                     logo: '/images/google-cloud.svg',
                     logoBgColor: 'bg-[#3367C3]/20',
                     },
@@ -91,7 +91,7 @@ export const gridItems= [
                     description: 'JavaScript runtime for server-side development', 
                     id: 12,
                     header: 'Header1',
-                    className: 'bg-green-600',
+                    className: 'bg-green-600', // Not used by BentoGrid, kept for reference
                     logo: '/images/file-type-node.svg',
                     logoBgColor: 'bg-[#2A7A29]/20',
                     }
@@ -151,6 +151,20 @@ export const appleCards = [
       "Multi-environment deployment strategy"
     ],
     technologies: ["Next.js", "TypeScript", "Tailwind", "Sentry", "Vercel"]
+  },
+  {
+    category: "Internship Project",
+    title: "ITSM System for Aero Systems Indonesia",
+    src: "/images/applecards/dell-yNvVnPcurD8-unsplash.png",
+    description: "An AI-powered document analysis tool that uses machine learning to extract, categorize, and process information from various document types. Built with Python, TensorFlow, and integrated with a React frontend.",
+    features: [
+      "OCR text extraction from images and PDFs",
+      "Document classification and categorization",
+      "Natural language processing for content analysis",
+      "Batch processing capabilities",
+      "RESTful API for easy integration"
+    ],
+    technologies: ["Python", "TensorFlow", "React", "FastAPI"]
   },
   {
     category: "University Project",

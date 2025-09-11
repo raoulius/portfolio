@@ -97,20 +97,20 @@ body, html {
   color-scheme: dark !important;
 }
 
-/* Additional overrides for any remaining light elements */
-.bg-gray-50, .bg-gray-100, .bg-gray-200 {
+/* Additional overrides for specific light elements (avoiding tech stack cards) */
+.bg-gray-50:not(.group\/bento *), .bg-gray-100:not(.group\/bento *), .bg-gray-200:not(.group\/bento *) {
   background-color: rgb(38, 38, 38) !important;
 }
 
-.text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900 {
+.text-gray-600:not(.group\/bento *), .text-gray-700:not(.group\/bento *), .text-gray-800:not(.group\/bento *), .text-gray-900:not(.group\/bento *) {
   color: rgb(212, 212, 212) !important;
 }
 
-/* Force dark mode on any potentially light backgrounds */
-[class*="bg-white"], [class*="bg-gray-"] {
+/* Force dark backgrounds only on specific light elements, not tech cards */
+.bg-white:not(.group\/bento *) {
   background-color: rgb(23, 23, 23) !important;
 }
 
-[class*="text-black"], [class*="text-gray-"] {
+.text-black:not(.group\/bento *) {
   color: rgb(255, 255, 255) !important;
 }

@@ -40,8 +40,8 @@ export const BentoGridItem = ({
       className={cn(
         "group/bento relative shadow-input rounded-3xl bg-[rgb(26,26,26)] hover:bg-[rgb(40,40,40)] border-2 border-transparent transition duration-200 hover:shadow-xl hover:border-gray-300",
         // Mobile: minimal padding and square aspect, Desktop: original layout
-        "flex items-center justify-center p-2 aspect-square sm:flex-col sm:p-4 sm:aspect-auto",
-        className,
+        "flex items-center justify-center p-2 aspect-square sm:flex-col sm:p-4 sm:aspect-auto"
+        // Note: Intentionally NOT applying className prop to maintain consistent dark background
       )}
     >
       {/* Mobile layout: centered logo only */}
