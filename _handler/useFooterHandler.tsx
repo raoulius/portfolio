@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+'use client'
+import { useState } from 'react'
 
 export default function useFooterHandler() {
     const [copyToClipboard, setCopyToClipboard] = useState(false)
@@ -12,5 +13,11 @@ export default function useFooterHandler() {
         } catch (error) {
             console.error('Failed to copy:',error)
         }
+    }
+
+    return {
+        copyEmailToClipboard,
+        copyToClipboard,
+        emailAddress,
     }
 }
