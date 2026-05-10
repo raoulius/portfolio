@@ -1,20 +1,20 @@
 import React from 'react';
 import Image from "next/image";
 
-export const Title = ({ text }: { text: string }) => {
-    return <h1 className="title" >{text}</h1>;
+export const Title = ({ children }: { children: React.ReactNode }) => {
+    return <h1 className="title">{children}</h1>;
 }
 
-export const Subtitle = ({ text }: { text: string }) => {
-    return <h2 className="subtitle">{text}</h2>;
+export const Subtitle = ({ children }: { children: React.ReactNode }) => {
+    return <h2 className="subtitle">{children}</h2>;
 }
 
-export const Stack = ({ text }: { text: string }) => {
-    return <p className="stack">{text}</p>;
+export const Stack = ({ children }: { children: React.ReactNode }) => {
+    return <p className="stack">{children}</p>;
 }
 
-export const DashedDescription = ({ text }: { text: string }) => {
-    return <p className="description dashed">{text}</p>;
+export const DashedDescription = ({ children }: { children: React.ReactNode }) => {
+    return <p className="description dashed">{children}</p>;
 }
 
 export const Imaged = ({ imageUrl }: { imageUrl: string }) => {
