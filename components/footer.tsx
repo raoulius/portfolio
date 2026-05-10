@@ -1,6 +1,5 @@
 'use client'
 import React from "react";
-import { DottedGlowBackground } from "@/components/ui/dotted-glow-background";
 import useFooterHandler from "@/_handler/useFooterHandler";
 
 export default function Footer() {
