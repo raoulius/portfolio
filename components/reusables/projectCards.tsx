@@ -9,9 +9,9 @@ interface CardProps {
 
 export const ProjectCard = ({ title, description, stack, image }: CardProps) => {
     return (
-        <div className="bg-white rounded-xl w-full mt-4 mb-4 p-4 flex flex-col shadow-md border-2 hover:border-gray-800 border-gray-100 duration-200 transform transition-colors ">
+        <div className="bg-card rounded-xl w-full mt-4 mb-4 p-4 flex flex-col shadow-md border-2 hover:border-gray-800 border-gray-100 dark:border-gray-800 dark:hover:border-gray-200 duration-200 transform transition-colors ">
 
-            <div className="w-full h-50 overflow-hidden rounded-xl mb-4">
+            <div className="w-full h-50 overflow-hidden rounded-xl border border-gray-500 mb-4">
                 {image}
             </div>
 

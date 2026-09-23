@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { Roboto, Inter } from "next/font/google";
+import { Newsreader, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Sidebar } from "@/components/sidebar";
 
-const roboto = Roboto({
-    weight : '400',
+// Geist is the site font; Newsreader for editorial headings, Geist Mono for code.
+const newsreader = Newsreader({
     subsets: ['latin'],
+    style: ['normal', 'italic'],
+    variable: '--font-newsreader',
 })
 
-const inter = Inter({
-    weight : '400',
+const geist = Geist({
     subsets: ['latin'],
+    variable: '--font-geist',
+})
+
+const geistMono = Geist_Mono({
+    subsets: ['latin'],
+    variable: '--font-geist-mono',
 })
 
 export const metadata: Metadata = {
@@ -24,14 +30,13 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className={inter.className}>
+        <html lang="en" className={`${geist.className} ${newsreader.variable} ${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
+        <head>
+            {/* runs before paint so a saved dark theme doesn't flash white */}
+            <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}` }} />
+        </head>
         <body>
-        <div className="flex h-screen overflow-hidden">
-            <Sidebar />
-            <main className="ml-64 flex-1 overflow-y-auto h-full">
-                {children}
-            </main>
-        </div>
+        {children}
         </body>
         </html>
     );

@@ -24,7 +24,7 @@ export const Imaged = ({ imageUrl }: { imageUrl: string }) => {
             alt="project image"
             width={500}
             height={300}
-            className="rounded-xl object-cover"
+            className="w-full h-full object-cover object-left"
         />
     );
 };
