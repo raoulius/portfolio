@@ -7,9 +7,9 @@ export default async function AdminHome() {
     await requireAdmin()
     const [{ rows: [counts] }, resumeId] = await Promise.all([
         db.query<{ posts: number; drafts: number; projects: number }>(
-            `select (select count(*) from posts where published)::int as posts,
-                    (select count(*) from posts where not published)::int as drafts,
-                    (select count(*) from projects)::int as projects`),
+            `select (select count(*) from posts where published) as posts,
+                    (select count(*) from posts where not published) as drafts,
+                    (select count(*) from projects) as projects`),
         getSetting('resume_file_id'),
     ])
 

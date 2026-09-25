@@ -1,15 +1,16 @@
 // Creates tables and seeds the projects that used to be hardcoded.
 // Safe to re-run: schema is idempotent and seeding only happens on an empty table.
-// Usage: npm run db:setup
-import { readFileSync } from 'node:fs';
-import pg from 'pg';
+// Usage: npm run db:setup (DATABASE_PATH defaults to data/portfolio.db)
+import { mkdirSync, readFileSync } from 'node:fs';
+import { dirname } from 'node:path';
+import { DatabaseSync } from 'node:sqlite';
 
-const client = new pg.Client({ connectionString: process.env.DATABASE_URL });
-await client.connect();
-await client.query(readFileSync(new URL('../db/schema.sql', import.meta.url), 'utf8'));
+const path = process.env.DATABASE_PATH ?? 'data/portfolio.db';
+mkdirSync(dirname(path), { recursive: true });
+const db = new DatabaseSync(path);
+db.exec(readFileSync(new URL('../db/schema.sql', import.meta.url), 'utf8'));
 
-const { rows } = await client.query('select count(*)::int as n from projects');
-if (rows[0].n === 0) {
+if (db.prepare('select count(*) as n from projects').get().n === 0) {
     const seed = [
         ['Qash: Multi-Outlet POS & Restaurant Platform',
             'Multi-tenant SaaS for F&B businesses, piloting in 3 cafes. Point of sale, kitchen display, table reservations, inventory with recipe costing, HR and payroll, and a website builder for every merchant, with real-time updates over WebSockets.',
@@ -26,14 +27,15 @@ if (rows[0].n === 0) {
         ['Nox Topup Game Service',
             'Created a discord bot to automatically rank customers inside the discord server by how much they spent. Also created a landing page and handled SEO.',
             '/project/nox.png', 'https://noxconnection.com/', ['laravel', 'python', 'javascript', 'postgres']],
+        ['MouseSnap: Multi-Monitor Cursor Hotkeys for macOS',
+            'Open source menu bar app that jumps the cursor to the center of any monitor with one hotkey per display, numbered left to right like your physical layout. Handles mixed resolutions and stacked arrangements, needs no Accessibility permissions, and ships as a single dependency-free Swift file of about 80 KB.',
+            '/project/mousesnap.png', 'https://github.com/raoulius/mousesnap', ['swift']],
     ];
     for (const [i, [title, description, image, link, stack]] of seed.entries()) {
-        await client.query(
-            'insert into projects (title, description, image_url, link_url, stack, sort_order) values ($1,$2,$3,$4,$5,$6)',
-            [title, description, image, link, stack, i],
-        );
+        db.prepare('insert into projects (title, description, image_url, link_url, stack, sort_order) values (?,?,?,?,?,?)')
+            .run(title, description, image, link, JSON.stringify(stack), i);
     }
     console.log(`seeded ${seed.length} projects`);
 }
-await client.end();
-console.log('database ready');
+db.close();
+console.log(`database ready: ${path}`);

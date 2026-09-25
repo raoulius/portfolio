@@ -2,7 +2,8 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { db } from "@/lib/db";
+import { randomUUID } from "node:crypto";
+import { db, UNIQUE_VIOLATION } from "@/lib/db";
 import { requireAdmin, signIn, signOut } from "@/lib/auth";
 import { STACK_ICONS } from "@/lib/stack";
 
@@ -37,16 +38,14 @@ async function storeFile(file: File, allowed: string[]): Promise<{ id: string } 
     const data = Buffer.from(await file.arrayBuffer())
     const type = allowed.find((t) => t === file.type && SIGNATURES[t](data))
     if (!type) return { error: `File must be one of: ${allowed.map((t) => t.split('/')[1]).join(', ')}.` }
-    const { rows } = await db.query<{ id: string }>(
-        'insert into files (name, content_type, data) values ($1, $2, $3) returning id',
-        [file.name.slice(0, 200), type, data],
-    )
-    return { id: rows[0].id }
+    const id = randomUUID()
+    db.query('insert into files (id, name, content_type, data) values (?1, ?2, ?3, ?4)', [id, file.name.slice(0, 200), type, data])
+    return { id }
 }
 
 async function deleteStoredFile(url: string | null | undefined) {
     const id = url?.match(/^\/files\/([0-9a-f-]{36})$/)?.[1]
-    if (id) await db.query('delete from files where id = $1', [id])
+    if (id) await db.query('delete from files where id = ?1', [id])
 }
 
 function refreshSite() {
@@ -84,20 +83,20 @@ export async function savePostAction(form: FormData) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) fail(back, 'Date is invalid.')
 
     try {
-        const values = [title, slug, excerpt, body, published, date]
+        const values = [title, slug, excerpt, body, published ? 1 : 0, date]
         if (id) {
             await db.query(
-                `update posts set title=$1, slug=$2, excerpt=$3, body=$4, published=$5, published_at=$6, updated_at=now()
-                 where id=$7`, [...values, id])
+                `update posts set title=?1, slug=?2, excerpt=?3, body=?4, published=?5, published_at=?6, updated_at=current_timestamp
+                 where id=?7`, [...values, id])
         } else {
             const { rows } = await db.query<{ id: number }>(
                 `insert into posts (title, slug, excerpt, body, published, published_at)
-                 values ($1,$2,$3,$4,$5,$6) returning id`, values)
+                 values (?1,?2,?3,?4,?5,?6) returning id`, values)
             refreshSite()
             redirect(`/admin/blogs/${rows[0].id}?saved=1`)
         }
     } catch (e) {
-        if ((e as { code?: string }).code === '23505') fail(back, 'Another post already uses that slug.')
+        if ((e as { errcode?: number }).errcode === UNIQUE_VIOLATION) fail(back, 'Another post already uses that slug.')
         throw e
     }
     refreshSite()
@@ -106,7 +105,7 @@ export async function savePostAction(form: FormData) {
 
 export async function deletePostAction(form: FormData) {
     await requireAdmin()
-    await db.query('delete from posts where id = $1', [Number(form.get('id'))])
+    await db.query('delete from posts where id = ?1', [Number(form.get('id'))])
     refreshSite()
     redirect('/admin/blogs')
 }
@@ -129,7 +128,7 @@ export async function saveProjectAction(form: FormData) {
     if (!Number.isInteger(sortOrder)) fail(back, 'Order must be a whole number.')
 
     const existing = id
-        ? (await db.query<{ image_url: string | null }>('select image_url from projects where id = $1', [id])).rows[0]
+        ? (await db.query<{ image_url: string | null }>('select image_url from projects where id = ?1', [id])).rows[0]
         : undefined
     if (id && !existing) fail('/admin/projects', 'Project not found.')
 
@@ -142,16 +141,16 @@ export async function saveProjectAction(form: FormData) {
         imageUrl = `/files/${stored.id}`
     }
 
-    const values = [title, description, imageUrl, link, stack, sortOrder]
+    const values = [title, description, imageUrl, link, JSON.stringify(stack), sortOrder]
     let savedId = id
     if (id) {
         await db.query(
-            `update projects set title=$1, description=$2, image_url=$3, link_url=$4, stack=$5, sort_order=$6,
-             updated_at=now() where id=$7`, [...values, id])
+            `update projects set title=?1, description=?2, image_url=?3, link_url=?4, stack=?5, sort_order=?6,
+             updated_at=current_timestamp where id=?7`, [...values, id])
     } else {
         const { rows } = await db.query<{ id: number }>(
             `insert into projects (title, description, image_url, link_url, stack, sort_order)
-             values ($1,$2,$3,$4,$5,$6) returning id`, values)
+             values (?1,?2,?3,?4,?5,?6) returning id`, values)
         savedId = rows[0].id
     }
     refreshSite()
@@ -161,7 +160,7 @@ export async function saveProjectAction(form: FormData) {
 export async function deleteProjectAction(form: FormData) {
     await requireAdmin()
     const { rows } = await db.query<{ image_url: string | null }>(
-        'delete from projects where id = $1 returning image_url', [Number(form.get('id'))])
+        'delete from projects where id = ?1 returning image_url', [Number(form.get('id'))])
     await deleteStoredFile(rows[0]?.image_url)
     refreshSite()
     redirect('/admin/projects')
@@ -178,8 +177,8 @@ export async function uploadResumeAction(form: FormData) {
 
     const { rows } = await db.query<{ value: string }>("select value from settings where key = 'resume_file_id'")
     await db.query(
-        `insert into settings (key, value) values ('resume_file_id', $1)
+        `insert into settings (key, value) values ('resume_file_id', ?1)
          on conflict (key) do update set value = excluded.value`, [stored.id])
-    if (rows[0]) await db.query('delete from files where id = $1', [rows[0].value])
+    if (rows[0]) await db.query('delete from files where id = ?1', [rows[0].value])
     redirect('/admin/resume?saved=1')
 }
