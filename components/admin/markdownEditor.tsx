@@ -108,8 +108,11 @@ export function MarkdownEditor({ name, defaultValue }: { name: string; defaultVa
         if (at > 0 && lines[at - 1].trim()) block.unshift('')
         if (at < lines.length && lines[at].trim()) block.push('')
         lines.splice(at, 0, ...block)
-        const start = lines.slice(0, lines.indexOf(image, at)).reduce((n, l) => n + l.length + 1, 0)
+        const row = lines.indexOf(image, at)
+        const start = lines.slice(0, row).reduce((n, l) => n + l.length + 1, 0)
         replace(0, t.value.length, lines.join('\n'), start, start + image.length)
+        // programmatic edits don't scroll the box to the caret; show the new line once the mirror re-renders
+        requestAnimationFrame(() => t.previousElementSibling?.children[row]?.scrollIntoView({ block: 'nearest' }))
     }
 
     function onKeyDown(e: React.KeyboardEvent) {
@@ -175,9 +178,10 @@ export function MarkdownEditor({ name, defaultValue }: { name: string; defaultVa
                 </div>
             </div>
             {/* The mirror below renders the same text invisibly, one block per line, so each number sits
-                beside its line even when it wraps. It also sets the height, so the textarea grows with the text. */}
-            <div className="relative font-mono text-sm leading-relaxed [font-variant-ligatures:none]">
-                <div aria-hidden className="min-h-[36rem] rounded-b-md py-2 pr-3 pl-12 break-words whitespace-pre-wrap">
+                beside its line even when it wraps. It also sets the textarea's height; the outer box scrolls both together. */}
+            <div className="h-[36rem] min-h-40 resize-y overflow-y-auto rounded-b-md">
+            <div className="relative min-h-full font-mono text-sm leading-relaxed [font-variant-ligatures:none]">
+                <div aria-hidden className="rounded-b-md py-2 pr-3 pl-12 break-words whitespace-pre-wrap">
                     {text.split('\n').map((line, i) => (
                         <div key={i} className="relative">
                             <span className="absolute -left-12 w-9 text-right text-xs leading-[inherit] text-muted-foreground/60 select-none">{i + 1}</span>
@@ -195,6 +199,7 @@ export function MarkdownEditor({ name, defaultValue }: { name: string; defaultVa
                     onInput={(e) => setText(e.currentTarget.value)}
                     className="absolute inset-0 block size-full resize-none overflow-hidden rounded-b-md bg-transparent py-2 pr-3 pl-12 break-words whitespace-pre-wrap outline-none"
                 />
+            </div>
             </div>
         </div>
     )
