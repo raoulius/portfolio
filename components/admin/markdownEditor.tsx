@@ -1,6 +1,7 @@
 'use client'
 import { useRef, useState } from "react";
-import { Bold, Code, Italic, Link } from "lucide-react";
+import { Bold, Code, ImageIcon, Italic, Link } from "lucide-react";
+import { uploadPostImageAction } from "@/app/admin/actions";
 
 type Format = 'bold' | 'italic' | 'code' | 'link'
 
@@ -26,6 +27,9 @@ function fence(value: string, start: number, end: number) {
 
 export function MarkdownEditor({ name, defaultValue }: { name: string; defaultValue?: string }) {
     const ref = useRef<HTMLTextAreaElement>(null)
+    const fileRef = useRef<HTMLInputElement>(null)
+    const [uploading, setUploading] = useState(false)
+    const [text, setText] = useState(defaultValue ?? '')
     const [active, setActive] = useState<Record<Format, boolean>>({ bold: false, italic: false, code: false, link: false })
 
     function refreshActive() {
@@ -47,6 +51,7 @@ export function MarkdownEditor({ name, defaultValue }: { name: string; defaultVa
         t.setSelectionRange(from, to)
         if (!document.execCommand('insertText', false, text)) t.setRangeText(text, from, to, 'end')
         t.setSelectionRange(selStart, selEnd)
+        setText(t.value)
         refreshActive()
     }
 
@@ -77,6 +82,34 @@ export function MarkdownEditor({ name, defaultValue }: { name: string; defaultVa
         }
         const text = selected || (format === 'code' ? 'code' : 'text')
         replace(s, e, before + text + after, s + before.length, s + before.length + text.length)
+    }
+
+    // Uploads the picked image and puts it on its own line, at the line number the author chooses.
+    async function insertImage(file: File) {
+        const t = ref.current!
+        const lines = t.value.split('\n')
+        const current = t.value.slice(0, t.selectionStart).split('\n').length
+        const answer = window.prompt(`Put the image on which line? (1 to ${lines.length + 1})`, String(current))
+        const line = Number(answer)
+        if (!answer || !Number.isInteger(line)) return t.focus()
+
+        setUploading(true)
+        const form = new FormData()
+        form.set('image', file)
+        const result = await uploadPostImageAction(form).catch(() => ({ error: 'Upload failed.' }))
+        setUploading(false)
+        if ('error' in result) return window.alert(result.error)
+
+        const alt = file.name.replace(/\.[^.]+$/, '').replace(/[[\]]/g, '')
+        const image = `![${alt}](${result.url})`
+        const at = Math.min(Math.max(line - 1, 0), lines.length)
+        // blank lines around it so markdown renders it as its own block
+        const block = [image]
+        if (at > 0 && lines[at - 1].trim()) block.unshift('')
+        if (at < lines.length && lines[at].trim()) block.push('')
+        lines.splice(at, 0, ...block)
+        const start = lines.slice(0, lines.indexOf(image, at)).reduce((n, l) => n + l.length + 1, 0)
+        replace(0, t.value.length, lines.join('\n'), start, start + image.length)
     }
 
     function onKeyDown(e: React.KeyboardEvent) {
@@ -116,18 +149,53 @@ export function MarkdownEditor({ name, defaultValue }: { name: string; defaultVa
                             <Icon size={16} strokeWidth={2.25} aria-hidden />
                         </button>
                     ))}
+                    <button
+                        type="button"
+                        title="Image"
+                        aria-label="Insert image"
+                        disabled={uploading}
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => fileRef.current?.click()}
+                        className="cursor-pointer rounded p-1.5 text-muted-foreground transition-colors hover:bg-muted disabled:cursor-wait disabled:opacity-50"
+                    >
+                        <ImageIcon size={16} strokeWidth={2.25} aria-hidden />
+                    </button>
+                    {/* no name: stays out of the post form's submission */}
+                    <input
+                        ref={fileRef}
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp,image/gif"
+                        hidden
+                        onChange={(e) => {
+                            const file = e.target.files?.[0]
+                            e.target.value = ''
+                            if (file) insertImage(file)
+                        }}
+                    />
                 </div>
             </div>
-            <textarea
-                ref={ref}
-                id={`${name}-editor`}
-                name={name}
-                rows={24}
-                defaultValue={defaultValue}
-                onKeyDown={onKeyDown}
-                onSelect={refreshActive}
-                className="block w-full resize-y rounded-b-md bg-background px-3 py-2 font-mono text-sm leading-relaxed [font-variant-ligatures:none] outline-none"
-            />
+            {/* The mirror below renders the same text invisibly, one block per line, so each number sits
+                beside its line even when it wraps. It also sets the height, so the textarea grows with the text. */}
+            <div className="relative font-mono text-sm leading-relaxed [font-variant-ligatures:none]">
+                <div aria-hidden className="min-h-[36rem] rounded-b-md py-2 pr-3 pl-12 break-words whitespace-pre-wrap">
+                    {text.split('\n').map((line, i) => (
+                        <div key={i} className="relative">
+                            <span className="absolute -left-12 w-9 text-right text-xs leading-[inherit] text-muted-foreground/60 select-none">{i + 1}</span>
+                            <span className="text-transparent">{line || ' '}</span>
+                        </div>
+                    ))}
+                </div>
+                <textarea
+                    ref={ref}
+                    id={`${name}-editor`}
+                    name={name}
+                    defaultValue={defaultValue}
+                    onKeyDown={onKeyDown}
+                    onSelect={refreshActive}
+                    onInput={(e) => setText(e.currentTarget.value)}
+                    className="absolute inset-0 block size-full resize-none overflow-hidden rounded-b-md bg-transparent py-2 pr-3 pl-12 break-words whitespace-pre-wrap outline-none"
+                />
+            </div>
         </div>
     )
 }

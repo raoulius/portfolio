@@ -43,6 +43,8 @@ async function storeFile(file: File, allowed: string[]): Promise<{ id: string } 
     return { id }
 }
 
+const IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/gif']
+
 async function deleteStoredFile(url: string | null | undefined) {
     const id = url?.match(/^\/files\/([0-9a-f-]{36})$/)?.[1]
     if (id) await db.query('delete from files where id = ?1', [id])
@@ -82,16 +84,28 @@ export async function savePostAction(form: FormData) {
     if (!SLUG.test(slug)) fail(back, 'Slug may only contain lowercase letters, numbers and single dashes.')
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) fail(back, 'Date is invalid.')
 
+    const oldCover = id
+        ? (await db.query<{ cover_url: string | null }>('select cover_url from posts where id = ?1', [id])).rows[0]?.cover_url ?? null
+        : null
+    let cover = form.get('remove_cover') === 'on' ? null : oldCover
+    const coverFile = uploadedFile(form, 'cover')
+    if (coverFile) {
+        const stored = await storeFile(coverFile, IMAGE_TYPES)
+        if ('error' in stored) fail(back, stored.error)
+        cover = `/files/${stored.id}`
+    }
+
     try {
-        const values = [title, slug, excerpt, body, published ? 1 : 0, date]
+        const values = [title, slug, excerpt, body, published ? 1 : 0, date, cover]
         if (id) {
             await db.query(
-                `update posts set title=?1, slug=?2, excerpt=?3, body=?4, published=?5, published_at=?6, updated_at=current_timestamp
-                 where id=?7`, [...values, id])
+                `update posts set title=?1, slug=?2, excerpt=?3, body=?4, published=?5, published_at=?6, cover_url=?7,
+                 updated_at=current_timestamp where id=?8`, [...values, id])
+            if (oldCover !== cover) await deleteStoredFile(oldCover)
         } else {
             const { rows } = await db.query<{ id: number }>(
-                `insert into posts (title, slug, excerpt, body, published, published_at)
-                 values (?1,?2,?3,?4,?5,?6) returning id`, values)
+                `insert into posts (title, slug, excerpt, body, published, published_at, cover_url)
+                 values (?1,?2,?3,?4,?5,?6,?7) returning id`, values)
             refreshSite()
             redirect(`/admin/blogs/${rows[0].id}?saved=1`)
         }
@@ -105,9 +119,21 @@ export async function savePostAction(form: FormData) {
 
 export async function deletePostAction(form: FormData) {
     await requireAdmin()
-    await db.query('delete from posts where id = ?1', [Number(form.get('id'))])
+    const { rows } = await db.query<{ cover_url: string | null }>(
+        'delete from posts where id = ?1 returning cover_url', [Number(form.get('id'))])
+    await deleteStoredFile(rows[0]?.cover_url)
     refreshSite()
     redirect('/admin/blogs')
+}
+
+/** Called from the markdown editor; the returned url is inserted into the post body. */
+// ponytail: images removed from a body stay in `files`; sweep ids no post references if it ever matters.
+export async function uploadPostImageAction(form: FormData): Promise<{ url: string } | { error: string }> {
+    await requireAdmin()
+    const file = uploadedFile(form, 'image')
+    if (!file) return { error: 'Choose an image to upload.' }
+    const stored = await storeFile(file, IMAGE_TYPES)
+    return 'error' in stored ? stored : { url: `/files/${stored.id}` }
 }
 
 // ---- projects ----
@@ -135,7 +161,7 @@ export async function saveProjectAction(form: FormData) {
     let imageUrl = existing?.image_url ?? null
     const image = uploadedFile(form, 'image')
     if (image) {
-        const stored = await storeFile(image, ['image/png', 'image/jpeg', 'image/webp', 'image/gif'])
+        const stored = await storeFile(image, IMAGE_TYPES)
         if ('error' in stored) fail(back, stored.error)
         await deleteStoredFile(imageUrl)
         imageUrl = `/files/${stored.id}`

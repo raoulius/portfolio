@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireAdmin } from "@/lib/auth";
@@ -40,13 +41,27 @@ export default async function EditPost({ params, searchParams }: Props) {
                                defaultValue={post?.published_at ?? new Date().toISOString().slice(0, 10)} className={inputClass} />
                     </Field>
                 </div>
+                <Field label="Header image" hint="Shown as a banner across the top of the post. PNG, JPG, WebP or GIF, up to 10 MB. Leave empty to keep the current one.">
+                    {post?.cover_url && (
+                        <div className="relative mb-2 h-28 w-full overflow-hidden rounded-md border">
+                            <Image src={post.cover_url} alt="Current header image" fill sizes="768px" className="object-cover" />
+                        </div>
+                    )}
+                    <input type="file" name="cover" accept="image/png,image/jpeg,image/webp,image/gif" className="text-sm" />
+                </Field>
+                {post?.cover_url && (
+                    <label className="flex items-center gap-2 text-sm">
+                        <input type="checkbox" name="remove_cover" className="size-4" />
+                        Remove header image
+                    </label>
+                )}
                 <Field label="Excerpt" hint="Shown under the title in the blog list.">
                     <textarea name="excerpt" rows={3} defaultValue={post?.excerpt} className={inputClass} />
                 </Field>
                 <div>
                     <MarkdownEditor name="body" defaultValue={post?.body} />
                     <p className="mt-1 text-xs text-muted-foreground">
-                        Markdown. Select text and use the buttons or shortcuts to format it. ## headings appear in the
+                        Markdown. Select text and use the buttons or shortcuts to format it. The image button uploads a picture and asks which line to put it on; move that ![...](...) line to move the image. ## headings appear in the
                         &apos;On this page&apos; list. HTML such as &lt;figure&gt; also works.
                     </p>
                 </div>

@@ -10,6 +10,11 @@ mkdirSync(dirname(path), { recursive: true });
 const db = new DatabaseSync(path);
 db.exec(readFileSync(new URL('../db/schema.sql', import.meta.url), 'utf8'));
 
+// Columns added after a table already existed (create table if not exists skips them).
+if (!db.prepare('pragma table_info(posts)').all().some((c) => c.name === 'cover_url')) {
+    db.exec('alter table posts add column cover_url text');
+}
+
 if (db.prepare('select count(*) as n from projects').get().n === 0) {
     const seed = [
         ['Qash: Multi-Outlet POS & Restaurant Platform',

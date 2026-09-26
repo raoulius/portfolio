@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -21,6 +22,12 @@ export default async function PostPage({ params }: Props) {
     const { html, toc } = renderMarkdown(post.body)
 
     return (
+        <>
+        {post.cover_url && (
+            <div className="relative h-[30vh] max-h-80 min-h-44 w-full">
+                <Image src={post.cover_url} alt="" fill priority sizes="100vw" className="object-cover" />
+            </div>
+        )}
         <div className="blog mx-auto flex max-w-5xl gap-16 px-4 py-12 md:py-24">
             <article className="min-w-0 max-w-[40rem] flex-1">
                 <header className="blog-rise border-b border-(--rule) pb-10">
@@ -49,5 +56,6 @@ export default async function PostPage({ params }: Props) {
                 </aside>
             )}
         </div>
+        </>
     )
 }

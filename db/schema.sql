@@ -27,6 +27,7 @@ create table if not exists posts (
     title        text    not null,
     excerpt      text    not null default '',
     body         text    not null default '',       -- markdown
+    cover_url    text,                               -- '/files/<uuid>' banner shown above the post
     published    integer not null default 0,        -- 0/1
     published_at text    not null default current_date,  -- 'YYYY-MM-DD'
     created_at   text    not null default current_timestamp,
