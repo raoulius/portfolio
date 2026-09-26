@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { requireAdmin } from "@/lib/auth";
 import { getProjects } from "@/lib/db";
+import { dateTime } from "@/lib/format";
 import { PageHeader, buttonClass } from "@/components/admin/ui";
 
 export default async function AdminProjects() {
@@ -20,7 +21,10 @@ export default async function AdminProjects() {
                                 <div className="relative h-10 w-16 shrink-0 overflow-hidden rounded border bg-muted">
                                     {project.image_url && <Image src={project.image_url} alt="" fill sizes="64px" className="object-cover object-left" />}
                                 </div>
-                                <span className="min-w-0 flex-1 truncate font-medium">{project.title}</span>
+                                <span className="min-w-0 flex-1">
+                                    <span className="block truncate font-medium">{project.title}</span>
+                                    <span className="block text-xs text-muted-foreground">Updated {dateTime(project.updated_at)}</span>
+                                </span>
                                 <span className="text-sm text-muted-foreground">#{project.sort_order}</span>
                             </Link>
                         </li>

@@ -5,7 +5,7 @@ import { getProject } from "@/lib/db";
 import { STACK_GROUPS } from "@/lib/stack";
 import { deleteProjectAction, saveProjectAction } from "../../actions";
 import { ConfirmButton } from "@/components/admin/confirmButton";
-import { Field, Notice, PageHeader, buttonClass, inputClass } from "@/components/admin/ui";
+import { Field, Notice, PageHeader, Timestamps, buttonClass, inputClass } from "@/components/admin/ui";
 
 type Props = { params: Promise<{ id: string }>; searchParams: Promise<{ error?: string; saved?: string }> }
 
@@ -19,6 +19,7 @@ export default async function EditProject({ params, searchParams }: Props) {
     return (
         <>
             <PageHeader title={project ? 'Edit project' : 'New project'} back="/admin/projects" />
+            {project && <Timestamps created={project.created_at} updated={project.updated_at} />}
             <Notice error={error} saved={saved} />
             <form action={saveProjectAction} className="space-y-5">
                 {project && <input type="hidden" name="id" value={project.id} />}

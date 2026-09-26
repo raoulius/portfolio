@@ -28,6 +28,8 @@ export type Project = {
     link_url: string | null
     stack: string[]
     sort_order: number
+    created_at: string
+    updated_at: string
 }
 
 export type Post = {
@@ -39,9 +41,11 @@ export type Post = {
     cover_url: string | null
     published: boolean
     published_at: string // YYYY-MM-DD
+    created_at: string
+    updated_at: string
 }
 
-const POST_COLS = 'id, slug, title, excerpt, body, cover_url, published, published_at'
+const POST_COLS = 'id, slug, title, excerpt, body, cover_url, published, published_at, created_at, updated_at'
 
 // SQLite has no boolean or array columns: published is 0/1 and stack is JSON text.
 const toPost = (p: Post) => ({ ...p, published: Boolean(p.published) })

@@ -6,7 +6,7 @@ import { getPost } from "@/lib/db";
 import { deletePostAction, savePostAction } from "../../actions";
 import { ConfirmButton } from "@/components/admin/confirmButton";
 import { MarkdownEditor } from "@/components/admin/markdownEditor";
-import { Field, Notice, PageHeader, buttonClass, inputClass, secondaryButtonClass } from "@/components/admin/ui";
+import { Field, Notice, PageHeader, Timestamps, buttonClass, inputClass, secondaryButtonClass } from "@/components/admin/ui";
 
 type Props = { params: Promise<{ id: string }>; searchParams: Promise<{ error?: string; saved?: string }> }
 
@@ -26,6 +26,7 @@ export default async function EditPost({ params, searchParams }: Props) {
                     <Link href={`/blog/${post.slug}`} target="_blank" className={secondaryButtonClass}>View post</Link>
                 )}
             />
+            {post && <Timestamps created={post.created_at} updated={post.updated_at} />}
             <Notice error={error} saved={saved} />
             <form action={savePostAction} className="space-y-5">
                 {post && <input type="hidden" name="id" value={post.id} />}

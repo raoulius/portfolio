@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { dateTime } from "@/lib/format";
 
 export const inputClass = "w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring/50"
 export const buttonClass = "cursor-pointer rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background hover:opacity-90"
@@ -29,5 +30,13 @@ export function PageHeader({ title, back, action }: { title: string; back?: stri
                 {action}
             </div>
         </div>
+    )
+}
+
+export function Timestamps({ created, updated }: { created: string; updated: string }) {
+    return (
+        <p className="mb-6 text-xs text-muted-foreground">
+            Created {dateTime(created)} · Updated {dateTime(updated)}
+        </p>
     )
 }

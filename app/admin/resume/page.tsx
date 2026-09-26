@@ -1,5 +1,6 @@
 import { requireAdmin } from "@/lib/auth";
-import { db } from "@/lib/db";
+import { db, getSetting } from "@/lib/db";
+import { dateTime } from "@/lib/format";
 import { uploadResumeAction } from "../actions";
 import { Field, Notice, PageHeader, buttonClass, secondaryButtonClass } from "@/components/admin/ui";
 
@@ -9,6 +10,8 @@ export default async function AdminResume({ searchParams }: { searchParams: Prom
     const { rows: [current] } = await db.query<{ name: string; uploaded: string; kb: number }>(
         `select f.name, f.created_at as uploaded, length(f.data) / 1024 as kb
          from settings s join files f on f.id = s.value where s.key = 'resume_file_id'`)
+    // resumes uploaded before resume_created_at existed fall back to the current file's time
+    const created = (await getSetting('resume_created_at')) ?? current?.uploaded
 
     return (
         <>
@@ -18,7 +21,7 @@ export default async function AdminResume({ searchParams }: { searchParams: Prom
                 <div className="text-sm">
                     <p className="font-medium">{current ? current.name : 'resume.pdf (bundled with the site)'}</p>
                     <p className="text-muted-foreground">
-                        {current ? `Uploaded ${new Date(`${current.uploaded}Z`).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}, ${current.kb} KB` : 'No resume uploaded yet'}
+                        {current ? `Created ${dateTime(created!)} · Updated ${dateTime(current.uploaded)} · ${current.kb} KB` : 'No resume uploaded yet'}
                     </p>
                 </div>
                 <a href="/resume" target="_blank" className={secondaryButtonClass}>Open</a>

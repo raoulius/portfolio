@@ -205,6 +205,8 @@ export async function uploadResumeAction(form: FormData) {
     await db.query(
         `insert into settings (key, value) values ('resume_file_id', ?1)
          on conflict (key) do update set value = excluded.value`, [stored.id])
+    // first upload only; each replacement is a new file, so its created_at is the "updated" time
+    await db.query(`insert into settings (key, value) values ('resume_created_at', current_timestamp) on conflict (key) do nothing`)
     if (rows[0]) await db.query('delete from files where id = ?1', [rows[0].value])
     redirect('/admin/resume?saved=1')
 }
