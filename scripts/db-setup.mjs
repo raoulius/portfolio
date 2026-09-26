@@ -28,7 +28,7 @@ if (db.prepare('select count(*) as n from projects').get().n === 0) {
             'Created a discord bot to automatically rank customers inside the discord server by how much they spent. Also created a landing page and handled SEO.',
             '/project/nox.png', 'https://noxconnection.com/', ['laravel', 'python', 'javascript', 'postgres']],
         ['MouseSnap: Multi-Monitor Cursor Hotkeys for macOS',
-            'Open source menu bar app that jumps the cursor to the center of any monitor with one hotkey per display, numbered left to right like your physical layout. Handles mixed resolutions and stacked arrangements, needs no Accessibility permissions, and ships as a single dependency-free Swift file of about 80 KB.',
+            'Open source menu bar app that jumps the cursor to the center of any monitor with one hotkey per display, numbered left to right like your physical layout. It clicks once on arrival so the app on the new monitor is focused right away, handles mixed resolutions and stacked arrangements, and ships as a single dependency-free Swift file of about 80 KB.',
             '/project/mousesnap.png', 'https://github.com/raoulius/mousesnap', ['swift']],
     ];
     for (const [i, [title, description, image, link, stack]] of seed.entries()) {

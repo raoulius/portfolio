@@ -33,7 +33,7 @@ export default function RootLayout({
         <html lang="en" className={`${geist.className} ${newsreader.variable} ${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
         <head>
             {/* runs before paint so a saved dark theme doesn't flash white */}
-            <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}` }} />
+            <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.classList.add('dark')}catch(e){}` }} />
         </head>
         <body>
         {children}

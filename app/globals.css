@@ -128,8 +128,10 @@
   }
 }
 
-/* ---- Blog: warm monochrome editorial styling ---- */
-.blog {
+/* ---- Site + blog: warm monochrome editorial styling ---- */
+.site, .blog {
+  --canvas: #FFFFFF;
+  --surface: #F7F7F5;
   --ink: #2F3437;
   --ink-strong: #111111;
   --ink-muted: #787774;
@@ -140,7 +142,9 @@
   font-family: var(--font-geist), 'Helvetica Neue', sans-serif;
   color: var(--ink);
 }
-.dark .blog {
+.dark .site, .dark .blog {
+  --canvas: #0B0B0C;
+  --surface: #161617;
   --ink: #D5D5D2;
   --ink-strong: #F4F4F2;
   --ink-muted: #9B9A97;
@@ -168,8 +172,28 @@
   animation: blog-rise 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: calc(var(--index, 0) * 80ms);
 }
+/* Fades in on load; where supported, scrubs in as it scrolls into view instead. */
+.reveal {
+  animation: blog-rise 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--index, 0) * 80ms);
+}
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+    animation-delay: 0ms;
+  }
+}
+
+/* An orphaned last project tile spans the row, text beside the screenshot. */
+@media (min-width: 48rem) {
+  .tile:last-child:nth-child(even) { grid-column: span 2; flex-direction: row; }
+  .tile:last-child:nth-child(even) > * { flex: 1; }
+  .tile:last-child:nth-child(even) > :first-child { padding-bottom: 2.75rem; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .blog-rise { animation: none; }
+  .blog-rise, .reveal { animation: none; }
 }
 
 /* Rendered markdown for blog posts. */
