@@ -148,6 +148,7 @@ export async function saveProjectAction(form: FormData) {
     const link = text(form, 'link_url') || null
     const sortOrder = Number(text(form, 'sort_order') || 0)
     const stack = form.getAll('stack').map(String).filter((key) => key in STACK_ICONS)
+    const openSource = form.get('open_source') === 'on' ? 1 : 0
 
     if (!title) fail(back, 'Title is required.')
     if (link && !/^https?:\/\/\S+$/i.test(link)) fail(back, 'Link must start with http:// or https://')
@@ -167,16 +168,16 @@ export async function saveProjectAction(form: FormData) {
         imageUrl = `/files/${stored.id}`
     }
 
-    const values = [title, description, imageUrl, link, JSON.stringify(stack), sortOrder]
+    const values = [title, description, imageUrl, link, JSON.stringify(stack), sortOrder, openSource]
     let savedId = id
     if (id) {
         await db.query(
             `update projects set title=?1, description=?2, image_url=?3, link_url=?4, stack=?5, sort_order=?6,
-             updated_at=current_timestamp where id=?7`, [...values, id])
+             open_source=?7, updated_at=current_timestamp where id=?8`, [...values, id])
     } else {
         const { rows } = await db.query<{ id: number }>(
-            `insert into projects (title, description, image_url, link_url, stack, sort_order)
-             values (?1,?2,?3,?4,?5,?6) returning id`, values)
+            `insert into projects (title, description, image_url, link_url, stack, sort_order, open_source)
+             values (?1,?2,?3,?4,?5,?6,?7) returning id`, values)
         savedId = rows[0].id
     }
     refreshSite()

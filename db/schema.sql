@@ -17,6 +17,7 @@ create table if not exists projects (
     link_url    text,
     stack       text    not null default '[]',      -- JSON array of STACK_ICONS keys in lib/stack.ts
     sort_order  integer not null default 0,
+    open_source integer not null default 0,         -- 0/1: listed under "Open Source" instead of "Projects"
     created_at  text    not null default current_timestamp,
     updated_at  text    not null default current_timestamp
 );

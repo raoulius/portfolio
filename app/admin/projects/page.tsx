@@ -22,7 +22,10 @@ export default async function AdminProjects() {
                                     {project.image_url && <Image src={project.image_url} alt="" fill sizes="64px" className="object-cover object-left" />}
                                 </div>
                                 <span className="min-w-0 flex-1">
-                                    <span className="block truncate font-medium">{project.title}</span>
+                                    <span className="flex items-center gap-2">
+                                        <span className="truncate font-medium">{project.title}</span>
+                                        {project.open_source && <span className="shrink-0 rounded border px-1.5 text-xs text-muted-foreground">Open source</span>}
+                                    </span>
                                     <span className="block text-xs text-muted-foreground">Updated {dateTime(project.updated_at)}</span>
                                 </span>
                                 <span className="text-sm text-muted-foreground">#{project.sort_order}</span>

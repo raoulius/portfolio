@@ -3,9 +3,16 @@ import Image from "next/image";
 import {StackIcons} from "@/components/reusables/stackIcons";
 import { getProjects } from "@/lib/db";
 
-export default async function Projects() {
-    const projects = await getProjects()
+// One titled group. Each group is its own grid, so the wide first/last tiles are counted per group.
+export default async function Projects({ openSource, title, subtitle }: { openSource: boolean; title: string; subtitle?: string }) {
+    const projects = (await getProjects()).filter((p) => p.open_source === openSource)
+    if (projects.length === 0) return null
     return (
+        <section className="mt-8 first:mt-0 md:mt-10 [section+&]:mt-16 md:[section+&]:mt-24">
+        <header className="reveal mb-8 md:mb-10">
+            <h2 className="font-editorial text-5xl text-(--ink-strong) md:text-6xl">{title}</h2>
+            {subtitle && <p className="mt-3 text-[1.0625rem] text-(--ink-muted)">{subtitle}</p>}
+        </header>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
             {projects.map((project, index) => (
                 <article
@@ -52,5 +59,6 @@ export default async function Projects() {
                 </article>
             ))}
         </div>
+        </section>
     )
 }

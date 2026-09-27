@@ -45,6 +45,10 @@ export default async function EditProject({ params, searchParams }: Props) {
                     )}
                     <input type="file" name="image" accept="image/png,image/jpeg,image/webp,image/gif" className="text-sm" />
                 </Field>
+                <label className="flex items-center gap-2 text-sm">
+                    <input type="checkbox" name="open_source" defaultChecked={project?.open_source} className="size-4" />
+                    Open source (shown under &quot;Open Source&quot; on the homepage instead of &quot;Projects&quot;)
+                </label>
                 <fieldset className="space-y-4">
                     <legend className="mb-2 text-sm font-medium">Stack</legend>
                     {Object.entries(STACK_GROUPS).map(([group, icons]) => (

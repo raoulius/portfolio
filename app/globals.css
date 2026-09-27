@@ -185,11 +185,11 @@
   }
 }
 
-/* An orphaned last project tile spans the row, text beside the screenshot. */
+/* An orphaned last project tile, or a group's only tile, spans the row with text beside the screenshot. */
 @media (min-width: 48rem) {
-  .tile:last-child:nth-child(even) { grid-column: span 2; flex-direction: row; }
-  .tile:last-child:nth-child(even) > * { flex: 1; }
-  .tile:last-child:nth-child(even) > :first-child { padding-bottom: 2.75rem; }
+  .tile:last-child:nth-child(even), .tile:only-child { grid-column: span 2; flex-direction: row; }
+  .tile:last-child:nth-child(even) > *, .tile:only-child > * { flex: 1; }
+  .tile:last-child:nth-child(even) > :first-child, .tile:only-child > :first-child { padding-bottom: 2.75rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

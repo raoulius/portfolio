@@ -21,7 +21,7 @@ export function Sidebar() {
   const { copied, handleEmailClick } = useLayoutHandler();
 
   return (
-    <aside className="bg-background border-b p-4 md:border-b-0 md:border-r md:w-64 md:fixed md:inset-y-0 md:left-0 md:overflow-y-auto">
+    <aside className="flex flex-col bg-background border-b p-4 md:border-b-0 md:border-r md:w-64 md:fixed md:inset-y-0 md:left-0 md:overflow-y-auto">
       <nav className="flex flex-col gap-2">
         <Link
           href="/"
@@ -106,14 +106,17 @@ export function Sidebar() {
           >
             <Contrast size={20} />
           </button>
-          <div className="flex items-center gap-2">
-            <LockKeyhole size={20} aria-hidden />
-            <Link href="/admin" className="hover:text-blue-500">
-              Admin
-            </Link>
-          </div>
         </div>
       </nav>
+      {/* pinned to the bottom of the full-height sidebar on desktop */}
+      <Link
+        href="/admin"
+        aria-label="Admin"
+        title="Admin"
+        className="mt-4 w-fit hover:text-blue-500 md:mt-auto md:pt-4"
+      >
+        <LockKeyhole size={20} aria-hidden />
+      </Link>
     </aside>
   );
 }

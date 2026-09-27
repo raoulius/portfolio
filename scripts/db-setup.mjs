@@ -14,6 +14,11 @@ db.exec(readFileSync(new URL('../db/schema.sql', import.meta.url), 'utf8'));
 if (!db.prepare('pragma table_info(posts)').all().some((c) => c.name === 'cover_url')) {
     db.exec('alter table posts add column cover_url text');
 }
+if (!db.prepare('pragma table_info(projects)').all().some((c) => c.name === 'open_source')) {
+    db.exec('alter table projects add column open_source integer not null default 0');
+    // one-time guess for existing rows: GitHub-hosted projects are the open source ones
+    db.exec("update projects set open_source = 1 where link_url like 'https://github.com/%'");
+}
 
 if (db.prepare('select count(*) as n from projects').get().n === 0) {
     const seed = [
@@ -34,11 +39,11 @@ if (db.prepare('select count(*) as n from projects').get().n === 0) {
             '/project/nox.png', 'https://noxconnection.com/', ['laravel', 'python', 'javascript', 'postgres']],
         ['MouseSnap: Multi-Monitor Cursor Hotkeys for macOS',
             'Open source menu bar app that jumps the cursor to the center of any monitor with one hotkey per display, numbered left to right like your physical layout. It clicks once on arrival so the app on the new monitor is focused right away, handles mixed resolutions and stacked arrangements, and ships as a single dependency-free Swift file of about 80 KB.',
-            '/project/mousesnap.png', 'https://github.com/raoulius/mousesnap', ['swift']],
+            '/project/mousesnap.png', 'https://github.com/raoulius/mousesnap', ['swift'], true],
     ];
-    for (const [i, [title, description, image, link, stack]] of seed.entries()) {
-        db.prepare('insert into projects (title, description, image_url, link_url, stack, sort_order) values (?,?,?,?,?,?)')
-            .run(title, description, image, link, JSON.stringify(stack), i);
+    for (const [i, [title, description, image, link, stack, openSource = false]] of seed.entries()) {
+        db.prepare('insert into projects (title, description, image_url, link_url, stack, sort_order, open_source) values (?,?,?,?,?,?,?)')
+            .run(title, description, image, link, JSON.stringify(stack), i, openSource ? 1 : 0);
     }
     console.log(`seeded ${seed.length} projects`);
 }

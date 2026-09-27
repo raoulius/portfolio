@@ -28,8 +28,9 @@ export default async function PostPage({ params }: Props) {
                 <Image src={post.cover_url} alt="" fill priority sizes="100vw" className="object-cover" />
             </div>
         )}
-        <div className="blog mx-auto flex max-w-5xl gap-16 px-4 py-12 md:py-24">
-            <article className="min-w-0 max-w-[40rem] flex-1">
+        {/* article in the centre column; the table of contents, when there is one, sits in the right one */}
+        <div className="blog mx-auto grid max-w-6xl gap-12 px-4 py-12 md:py-24 xl:grid-cols-[12rem_minmax(0,40rem)_12rem] xl:justify-center">
+            <article className="mx-auto w-full min-w-0 max-w-[40rem] xl:col-start-2">
                 <header className="blog-rise border-b border-(--rule) pb-10">
                     <Link href="/blog" className="font-meta text-(--ink-muted) transition-colors hover:text-(--ink-strong)">
                         Blog
@@ -49,7 +50,7 @@ export default async function PostPage({ params }: Props) {
                 />
             </article>
             {toc.length > 0 && (
-                <aside className="hidden w-52 shrink-0 xl:block">
+                <aside className="hidden xl:block">
                     <div className="sticky top-24">
                         <TableOfContents entries={toc} />
                     </div>

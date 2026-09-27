@@ -28,6 +28,7 @@ export type Project = {
     link_url: string | null
     stack: string[]
     sort_order: number
+    open_source: boolean
     created_at: string
     updated_at: string
 }
@@ -49,8 +50,8 @@ const POST_COLS = 'id, slug, title, excerpt, body, cover_url, published, publish
 
 // SQLite has no boolean or array columns: published is 0/1 and stack is JSON text.
 const toPost = (p: Post) => ({ ...p, published: Boolean(p.published) })
-type ProjectRow = Omit<Project, 'stack'> & { stack: string }
-const toProject = (p: ProjectRow): Project => ({ ...p, stack: JSON.parse(p.stack) })
+type ProjectRow = Omit<Project, 'stack' | 'open_source'> & { stack: string; open_source: number }
+const toProject = (p: ProjectRow): Project => ({ ...p, stack: JSON.parse(p.stack), open_source: Boolean(p.open_source) })
 
 export async function getProjects() {
     return db.query<ProjectRow>('select * from projects order by sort_order, id').rows.map(toProject)

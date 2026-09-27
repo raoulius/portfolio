@@ -6,7 +6,8 @@ export default function Home() {
     return (
         <div className="site min-h-screen bg-background">
             <main className="relative z-10 flex flex-col py-8 md:py-32 px-4 md:px-8 lg:px-16">
-                <Projects />
+                <Projects openSource={false} title="Projects" />
+                    <Projects openSource title="Open Source" subtitle="Projects I maintain or contributed to" />
             </main>
         </div>
     );
